@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,6 +47,7 @@ fun ModifierDemoScreen(modifier: Modifier = Modifier) {
     ) {
         BasicBox()
         BoxWithPadding()
+        BoxWithBorder()
     }
 }
 
@@ -78,6 +80,23 @@ fun BoxWithPadding(modifier: Modifier = Modifier) {
             .background(Color.White)
     ) {
         Text(text = "padding(16.dp)", color = Color.Black)
+    }
+}
+
+/**
+ * Шаг 3. Box с рамкой (border).
+ * Демонстрирует Modifier.border(width, color) и сочетание border + padding + background.
+ */
+@Composable
+fun BoxWithBorder(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(140.dp)
+            .border(width = 3.dp, color = Color(0xFFE91E63))
+            .padding(8.dp)
+            .background(Color(0xFFFFC107))
+    ) {
+        Text(text = "border + padding + background", color = Color.Black)
     }
 }
 
