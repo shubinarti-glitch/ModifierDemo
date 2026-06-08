@@ -5,13 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,10 +28,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             ModifierDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BasicBox(modifier = Modifier.padding(innerPadding))
+                    ModifierDemoScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
+    }
+}
+
+@Composable
+fun ModifierDemoScreen(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        BasicBox()
+        BoxWithPadding()
     }
 }
 
@@ -47,10 +64,27 @@ fun BasicBox(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+/**
+ * Шаг 2. Box с внутренним отступом padding.
+ * Демонстрирует Modifier.padding(16.dp) — отодвигает контент от краёв.
+ */
 @Composable
-fun BasicBoxPreview() {
+fun BoxWithPadding(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(120.dp)
+            .background(Color(0xFF03A9F4))
+            .padding(16.dp)
+            .background(Color.White)
+    ) {
+        Text(text = "padding(16.dp)", color = Color.Black)
+    }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun ModifierDemoScreenPreview() {
     ModifierDemoTheme {
-        BasicBox()
+        ModifierDemoScreen()
     }
 }
