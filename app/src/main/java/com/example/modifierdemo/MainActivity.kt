@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,6 +58,7 @@ fun ModifierDemoScreen(modifier: Modifier = Modifier) {
         BoxWithBorder()
         OrderDemo()
         ClickableBox()
+        ClippedBox()
     }
 }
 
@@ -154,6 +157,23 @@ fun ClickableBox(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ) {
         Text(text = "Clicked: $count", color = Color.White)
+    }
+}
+
+/**
+ * Шаг 6. Modifier.clip(RoundedCornerShape): обрезка по форме.
+ * Важно: clip применяется ПЕРЕД background, иначе фон рисуется поверх формы.
+ */
+@Composable
+fun ClippedBox(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(160.dp, 80.dp)
+            .clip(RoundedCornerShape(24.dp))
+            .background(Color(0xFFFF5722)),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = "clip(RoundedCornerShape)", color = Color.White)
     }
 }
 
