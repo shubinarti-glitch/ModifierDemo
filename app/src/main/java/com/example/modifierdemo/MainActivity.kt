@@ -9,6 +9,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -48,6 +49,7 @@ fun ModifierDemoScreen(modifier: Modifier = Modifier) {
         BasicBox()
         BoxWithPadding()
         BoxWithBorder()
+        OrderDemo()
     }
 }
 
@@ -97,6 +99,36 @@ fun BoxWithBorder(modifier: Modifier = Modifier) {
             .background(Color(0xFFFFC107))
     ) {
         Text(text = "border + padding + background", color = Color.Black)
+    }
+}
+
+/**
+ * Шаг 4. Порядок модификаторов имеет значение.
+ * Слева: padding ДО background — фон захватывает только внутреннюю область.
+ * Справа: background ДО padding — фон захватывает всё, padding делает контент меньше.
+ */
+@Composable
+fun OrderDemo(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(120.dp)
+                .padding(16.dp)
+                .background(Color(0xFF9C27B0))
+        ) {
+            Text("padding\nbefore\nbackground", color = Color.White)
+        }
+        Box(
+            modifier = Modifier
+                .size(120.dp)
+                .background(Color(0xFF9C27B0))
+                .padding(16.dp)
+        ) {
+            Text("background\nbefore\npadding", color = Color.White)
+        }
     }
 }
 
