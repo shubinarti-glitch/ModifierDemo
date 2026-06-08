@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,6 +55,7 @@ fun ModifierDemoScreen(modifier: Modifier = Modifier) {
         BoxWithPadding()
         BoxWithBorder()
         OrderDemo()
+        ClickableBox()
     }
 }
 
@@ -129,6 +135,25 @@ fun OrderDemo(modifier: Modifier = Modifier) {
         ) {
             Text("background\nbefore\npadding", color = Color.White)
         }
+    }
+}
+
+/**
+ * Шаг 5. Modifier.clickable: реакция на клик с обновлением состояния.
+ * Каждый клик увеличивает счётчик; рекомпозиция перерисовывает текст.
+ */
+@Composable
+fun ClickableBox(modifier: Modifier = Modifier) {
+    var count by remember { mutableIntStateOf(0) }
+    Box(
+        modifier = modifier
+            .size(160.dp, 80.dp)
+            .background(Color(0xFF607D8B))
+            .clickable { count++ }
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = "Clicked: $count", color = Color.White)
     }
 }
 
